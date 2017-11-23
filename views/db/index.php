@@ -3,6 +3,21 @@
  * @var $this \yii\web\View
  * @var $dbClasses string[]
  */
+
+$this->registerJs(<<<JS
+
+$('.editor').click(function() {
+    var targetId = $(this).data('target-id');
+    var targetEditorId = targetId + '-edit';
+    var target = $(targetId);
+    var targetEditor = $(targetEditorId);
+    
+    target.toggleClass('hidden');
+    targetEditor.toggleClass('hidden');
+});
+JS
+)
+
 ?>
 
 <div class="row">
@@ -51,9 +66,23 @@
                         </tr>
                         <?php $instanceAllData = $dbClass::find()->all(); ?>
                         <?php foreach($instanceAllData as $allData): ?>
+                            <?php /** @var $allData \yii\db\ActiveRecord|\app\models\interfaces\DbRecordInterface */ ?>
                             <tr>
-                                <td><?= $allData->title ?></td>
-                                <td></td>
+                                <td>
+                                    <div  id="<?= $allData->formName() .'-' . $allData->getPrimaryKey() ?>">
+                                        <?= $allData->title ?>
+                                    </div>
+
+                                    <?= \yii\helpers\Html::activeTextInput($allData, 'title', [
+                                        'id' => $allData->formName() . '-' . $allData->getPrimaryKey() . '-edit',
+                                        'class' => 'hidden'
+                                    ]) ?>
+                                </td>
+                                <td>
+                                    <a href="#" class="editor" data-target-id="#<?= $allData->formName() .'-' . $allData->getPrimaryKey() ?>">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </a>
+                                </td>
                             </tr>
                         <?php endforeach ?>
                     </table>
