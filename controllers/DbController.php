@@ -14,7 +14,9 @@ use app\models\interfaces\DbRecordInterface;
 use app\models\Posts;
 use app\models\Tag;
 use yii\db\ActiveRecord;
+use yii\db\Exception;
 use yii\web\Controller;
+use yii\web\Response;
 
 class DbController extends Controller
 {
@@ -68,6 +70,11 @@ class DbController extends Controller
         /** @var $instance ActiveRecord */
         $instance->load(\Yii::$app->request->post());
         $instance->save();
+
+        if (\Yii::$app->request->isAjax) {
+            return $this->renderAjax('_update-form', ['allData' => $instance]);
+        }
+
         return $this->redirect('index');
     }
 }
