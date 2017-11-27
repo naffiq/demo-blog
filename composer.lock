@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe72bab82c26072dc006c828076816b7",
+    "content-hash": "c18073126b7550977cf928243c13ec21",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -213,6 +213,95 @@
                 "html"
             ],
             "time": "2017-06-03T02:28:16+00:00"
+        },
+        {
+            "name": "naffiq/yii2-kkb",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/naffiq/yii2-kkb.git",
+                "reference": "244c2d857e232de4b55eb47718e59c67c65b12f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/naffiq/yii2-kkb/zipball/244c2d857e232de4b55eb47718e59c67c65b12f4",
+                "reference": "244c2d857e232de4b55eb47718e59c67c65b12f4",
+                "shasum": ""
+            },
+            "require": {
+                "rquadling/lalit": "^1.5",
+                "yiisoft/yii2": "^2.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "0.4.4",
+                "phpunit/phpunit": "5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "naffiq\\kkb\\": "",
+                    "naffiq\\kkb\\exceptions\\": "exceptions/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Galymzhan Abdugalimov",
+                    "email": "abdu.galymzhan@gmail.com"
+                }
+            ],
+            "description": "Yii2 component for KazKom bank online payment",
+            "time": "2017-08-20T18:19:55+00:00"
+        },
+        {
+            "name": "rquadling/lalit",
+            "version": "1.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rquadling/lalit.git",
+                "reference": "dc05d3b3e00046791695bcce2f3c2c5b54cc3cbb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rquadling/lalit/zipball/dc05d3b3e00046791695bcce2f3c2c5b54cc3cbb",
+                "reference": "dc05d3b3e00046791695bcce2f3c2c5b54cc3cbb",
+                "shasum": ""
+            },
+            "require-dev": {
+                "mockery/mockery": "^0",
+                "phpunit/phpunit": "^4|^5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LaLit\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache License 2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Lalit Patel",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Richard Quadling",
+                    "role": "Developer"
+                }
+            ],
+            "description": "GitHub copy of LaLit's XML2Array and Array2XML",
+            "homepage": "http://www.lalit.org/lab",
+            "keywords": [
+                "array",
+                "xml"
+            ],
+            "abandoned": "digitickets/lalit",
+            "time": "2016-10-05T10:04:57+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

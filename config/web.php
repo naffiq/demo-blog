@@ -34,7 +34,7 @@ $config = [
             'useFileTransport' => true,
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'traceLevel' => YII_DEBUG ? 3 : 1,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
@@ -48,6 +48,23 @@ $config = [
             'showScriptName' => false,
             'rules' => [
             ],
+        ],
+        'kkbPayment' => [
+            'class' => 'naffiq\kkb\KKBPayment',
+
+            // Расположение публичного ключа
+            'publicKeyPath' => '@vendor/naffiq/yii2-kkb/payment-keys/test_pub.pem',
+            // Расположение приватного ключа
+            'privateKeyPath' => '@vendor/naffiq/yii2-kkb/payment-keys/test_prv.pem',
+            // Ключевая фраза к приватному ключу
+            'privateKeyPassword' => 'nissan',
+
+            // ID онлайн-магазина в системе kkb
+            'merchantId' => '92061101',
+            // ID сертификата онлайн-магазина в системе kkb
+            'merchantCertificateId' => '00C182B189',
+            // Название магазина
+            'merchantName' => 'Test shop',
         ],
     ],
     'params' => $params,
