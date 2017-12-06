@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Posts;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -61,7 +63,21 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $postsQuery = Posts::find();
+
+        $postsProvider = new ActiveDataProvider([
+            'query' => $postsQuery,
+        ]);
+
+        return $this->render('index', [
+            'postsProvider' => $postsProvider
+        ]);
+    }
+
+    public function actionNext()
+    {
+        sleep(2);
+        return 'Привет!';
     }
 
     /**

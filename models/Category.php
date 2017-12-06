@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\behaviors\ImageUploadBehavior;
 use app\models\interfaces\DbRecordInterface;
 use Yii;
 use yii\widgets\ActiveForm;
@@ -15,6 +16,10 @@ use yii\widgets\ActiveForm;
  */
 class Category extends \yii\db\ActiveRecord implements DbRecordInterface
 {
+    public $imageFile;
+
+
+
     /**
      * @inheritdoc
      */
@@ -31,6 +36,17 @@ class Category extends \yii\db\ActiveRecord implements DbRecordInterface
         return [
             [['title'], 'required'],
             [['title'], 'string', 'max' => 255],
+            [['imageFile'], 'file', 'extensions' => ['jpeg','png','gif']],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'imageUpload' => [
+                'class' => ImageUploadBehavior::className(),
+                'fieldName' => 'imageFile'
+            ]
         ];
     }
 

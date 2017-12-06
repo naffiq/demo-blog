@@ -2,24 +2,24 @@
 
 namespace app\models;
 
-use app\models\interfaces\DbRecordInterface;
 use Yii;
-use yii\helpers\ArrayHelper;
-use yii\widgets\ActiveForm;
 
 /**
  * This is the model class for table "posts".
  *
  * @property integer $id
  * @property string $title
- * @property string $titleIntl
- * @see Posts::getTitleIntl() получение поля titleIntl
- * @property integer $categoryId
- * @property Category $category
  * @property string $text
+ * @property integer $category_id
+ * @property string $image_file
  *
+ * @property Category $category
+ *
+ * @method string|null getUploadPath($attribute, $old = false) Returns file path for the attribute.
+ * @method string|null getUploadUrl($attribute) Returns file url for the attribute.
+ * @method bool sanitize($filename) Replaces characters in strings that are illegal/unsafe for filename.
  */
-class Posts extends \yii\db\ActiveRecord implements DbRecordInterface
+class Posts extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -29,6 +29,9 @@ class Posts extends \yii\db\ActiveRecord implements DbRecordInterface
         return 'posts';
     }
 
+    // DB
+    public $createdAt;
+
     /**
      * @inheritdoc
      */
@@ -37,8 +40,11 @@ class Posts extends \yii\db\ActiveRecord implements DbRecordInterface
         return [
             [['title', 'text'], 'required'],
             [['text'], 'string'],
-            ['category_id', 'integer'],
+            [['category_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
+            ['createdAt', 'string'],
+            [['image_file'], 'file', 'on' => ['create', 'update'], 'extensions' => null],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
 
@@ -49,40 +55,34 @@ class Posts extends \yii\db\ActiveRecord implements DbRecordInterface
     {
         return [
             'id' => 'ID',
-            'title' => 'Название статьи',
-            'text' => 'Содержание',
+            'title' => 'Title',
+            'text' => 'Text',
+            'category_id' => 'Category ID',
+            'image_file' => 'Image File',
         ];
     }
 
     /**
-     * Возвращает поля для вывода формы
-     *
-     * @param ActiveForm $form
-     *
-     * @return array
+     * @return \yii\db\ActiveQuery
      */
-    public function renderForm(ActiveForm $form)
-    {
-        return [
-            'title' => $form->field($this, 'title')->textInput(),
-            'text' => $form->field($this, 'text')->textarea(),
-            'category_id' => $form->field($this, 'category_id')->dropDownList(
-                ArrayHelper::map(Category::find()->all(), 'id', 'title')
-            ),
-        ];
-    }
-
-    /**
-     * $this->titleIntl
-     * @return string
-     */
-    public function getTitleIntl()
-    {
-        return 'Hello, world!';
-    }
-
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'image_fileFile' => [
+                'class' => 'mongosoft\file\UploadBehavior',
+                'attribute' => 'image_file',
+                'path' => '@webroot/media/posts/{id}',
+                'url' => '@web/media/posts/{id}',
+                'scenarios' => ['create', 'update'],
+            ],
+        ];
     }
 }

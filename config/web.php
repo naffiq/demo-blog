@@ -6,7 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'admin'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -17,7 +17,7 @@ $config = [
             'cookieValidationKey' => 'ebYDsgbD9Dh7rN_hirWvb1VdWs6Kkum9',
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => 'yii\caching\MemCache',
         ],
         'user' => [
             'identityClass' => 'app\models\User',
@@ -66,6 +66,15 @@ $config = [
             // Название магазина
             'merchantName' => 'Test shop',
         ],
+    ],
+
+    'modules' => [
+        'admin' => [
+            'class' => \naffiq\bridge\BridgeModule::className(),
+            'modules' => [
+                'content' => '\app\modules\content\Module'
+            ]
+        ]
     ],
     'params' => $params,
 ];

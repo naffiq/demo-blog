@@ -3,6 +3,38 @@
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
+
+$this->registerJs(<<<JS
+$('#next-btn').click(function (event) {
+    event.preventDefault();
+    $('.progress').addClass('progress--active');
+    
+    setTimeout((function() {
+        window.location = $(this).attr('href');        
+    }).bind(this), 10);
+});
+JS
+);
+$this->registerCss(<<<CSS
+    
+    .progress {
+        display: none;
+        position:fixed;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        z-index: 1031;
+        background: #FFF;
+        top: 0;
+        left: 0;
+    }
+    .progress--active {
+        display: flex;
+    }
+
+CSS
+);
 ?>
 <div class="site-index">
 
@@ -11,43 +43,19 @@ $this->title = 'My Yii Application';
 
         <p class="lead">You have successfully created your Yii-powered application.</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p><a class="btn btn-lg btn-success" id="next-btn" href="<?= \yii\helpers\Url::to(['next']) ?>">Next</a></p>
     </div>
 
     <div class="body-content">
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
+        <?= \yii\widgets\ListView::widget([
+            'dataProvider' => $postsProvider,
+            'view' => '_post'
+        ]) ?>
 
     </div>
+</div>
+
+<div class="progress">
+    <h1>Вычисляем</h1>
 </div>

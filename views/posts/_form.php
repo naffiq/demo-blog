@@ -20,6 +20,10 @@ use yii\helpers\ArrayHelper;
         ArrayHelper::map(\app\models\Category::find()->all(), 'id', 'title')
     ) ?>
 
+    <?= $form->field($model, 'imageFile')->fileInput() ?>
+    <?= $form->field($model, 'avatarFile')->fileInput() ?>
+    <?= $model->getImage() ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

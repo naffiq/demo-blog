@@ -30,3 +30,7 @@ tests/_output/*
 tests/_support/_generated
 
 .env
+
+/config/local.php
+/config/mode.php
+/config/db.php

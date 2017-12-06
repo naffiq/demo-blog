@@ -6,7 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'admin'],
     'controllerNamespace' => 'app\commands',
     'components' => [
         'cache' => [
@@ -23,6 +23,13 @@ $config = [
         'db' => $db,
     ],
     'params' => $params,
+
+    'modules' => [
+        'admin' => [
+            'class' => \naffiq\bridge\BridgeModule::className(),
+
+        ]
+    ],
     /*
     'controllerMap' => [
         'fixture' => [ // Fixture generation command line.

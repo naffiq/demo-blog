@@ -121,11 +121,4 @@ class PostsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-    public function actionSearch()
-    {
-        $post = Posts::find()->where(['title' => 'Привет мир!'])->all();
-
-        var_dump($post);
-    }
 }
