@@ -11,7 +11,7 @@ $('#next-btn').click(function (event) {
     
     setTimeout((function() {
         window.location = $(this).attr('href');        
-    }).bind(this), 10);
+    }).bind(this), 20);
 });
 JS
 );
